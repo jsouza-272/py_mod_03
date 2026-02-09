@@ -1,3 +1,6 @@
+import time
+
+
 def event_generator(qnt: int):
     if qnt % 2 == 0:
         event = "found tresure"
@@ -71,6 +74,10 @@ def main():
     print("=== Game Data Stream Processor ===\n")
     qnt = 1000
     event_nbr = 0
+    high_level = 0
+    treasure_event = 0
+    level_up_event = 0
+    processing_time = time.time()
     print(f"Processing {qnt} game events...\n")
     for p, l, e in generator(qnt):
         event_nbr += 1
@@ -78,9 +85,20 @@ def main():
             print(f"Event {event_nbr}: Player {p} (level {l}), {e}")
         if event_nbr == 3:
             print("...")
+        if l > 10:
+            high_level += 1
+        if e == "found tresure":
+            treasure_event += 1
+        if e == "leveled up":
+            level_up_event += 1
+    processing_time = time.time() - processing_time
     print("\n=== Stream Analytics ===")
-    print()
-    print()
+    print(f"Total events processed: {qnt}")
+    print(f"High-level players (10+) {high_level}")
+    print(f"Treasure events: {treasure_event}")
+    print(f"Level-up events: {level_up_event}")
+    print("\nMemory usage: Constant (streaming)")
+    print(f"Processing time: {processing_time:.3f} seconds")
     print("\n=== Generator Demonstration ===")
     fib = ""
     ctrl = 1
