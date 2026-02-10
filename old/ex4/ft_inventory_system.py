@@ -1,7 +1,7 @@
 import sys
 
 
-def inventory_system_analysis(inventory: dict) -> None:
+def inventory_system_analysis(inventory: dict):
     print("=== Inventory System Analysis ==")
     s = 0
     for p in inventory.values():
@@ -10,7 +10,7 @@ def inventory_system_analysis(inventory: dict) -> None:
     print("Unique item types:", len(inventory))
 
 
-def current_inventory(invetory: dict) -> None:
+def current_inventory(invetory: dict):
     print("=== Current Inventory ===")
     total = 0
     for p in inventory.values():
@@ -19,7 +19,7 @@ def current_inventory(invetory: dict) -> None:
         print(f"{key}: {value} units {((value * 100) / total):.1f}%")
 
 
-def inventory_statistics(invetory: dict) -> None:
+def inventory_statistics(invetory: dict):
     print("=== Inventory Statistics ===")
     vmx, vmn, kmx, kmn = -1, 1000, 0, 0
     for k, v in inventory.items():
@@ -36,7 +36,7 @@ def inventory_statistics(invetory: dict) -> None:
         print(f"Least abundant: {kmn} ({vmn} units)")
 
 
-def management_suggestions(invetory: dict) -> None:
+def management_suggestions(invetory: dict):
     print("=== Management Suggestions ===")
     restock = []
     for k, v in inventory.items():
@@ -45,7 +45,7 @@ def management_suggestions(invetory: dict) -> None:
     print(f"Restock needed: {restock}")
 
 
-def dictionary_properties_demo(invetory: dict) -> None:
+def dictionary_properties_demo(invetory: dict):
     print("=== Dictionary Properties Demo ===")
     keys = []
     for k in inventory.keys():

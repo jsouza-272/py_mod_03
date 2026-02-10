@@ -1,20 +1,20 @@
 class Player:
     def __init__(self, name: str, score: int, achievement: set,
-                 active: bool, regions: list[str]) -> None:
+                 active: bool, regions: list[str]):
         self.name = name
         self.score = score
         self.active = active
         self.achievement = achievement
         self.regions = regions
 
-    def factory(template: list[tuple]) -> list['Player']:
+    def factory(template: list[tuple]):
         players = []
         for name, score, achievement, active, regions in template:
             players.append(Player(name, score, achievement, active, regions))
         return players
 
 
-def list_comprehension(players: list[Player]) -> None:
+def list_comprehension(players: list[Player]):
     print(f"High scores (>2000): {[player.name for player in players
                                    if player.score > 2000]}")
     print(f"Scores doubled: {[player.score * 2 for player in players]}")
@@ -22,7 +22,7 @@ def list_comprehension(players: list[Player]) -> None:
                               if player.active]}")
 
 
-def dict_comprehension(players: list[Player]) -> None:
+def dict_comprehension(players: list[Player]):
     p_score = {player.name: player.score for player in players
                if player.active}
     scores = {'high': len([player.name for player in players
@@ -39,7 +39,7 @@ def dict_comprehension(players: list[Player]) -> None:
     print("Achievement counts:", achievements)
 
 
-def set_comprehension(players: list[Player]) -> None:
+def set_comprehension(players: list[Player]):
     list_players = set(player.name for player in players)
     achievements = [player.achievement for player in players]
     regions = set(region for player in players
@@ -59,7 +59,7 @@ def set_comprehension(players: list[Player]) -> None:
     print("Active regions:", regions)
 
 
-def combined(players: list[Player]) -> None:
+def combined(players: list[Player]):
     total_players = len(players)
     total_unique_achievements = set(acvmt for player in players
                                     for acvmt in player.achievement)

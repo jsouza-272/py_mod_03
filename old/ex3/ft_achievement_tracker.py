@@ -1,4 +1,4 @@
-def achievement_analytics(*players: set) -> None:
+def achievement_analytics(*players: set):
     print("=== Achievement Analytics ===\n")
     achievement = set.union(*players)
     print(f"All unique achievements: {achievement}")

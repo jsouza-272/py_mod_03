@@ -1,41 +1,49 @@
 import math
 
 
-def ft_coordinate_system(first: tuple, second: tuple) -> None:
-    distance = math.sqrt((first[0] - second[0])**2
-                         + (first[1] - second[1])**2
-                         + (first[2] - second[2])**2)
-    print(f"Distance between {first} and {second}: {distance:.2f}")
-
-
-def parsing(coord: str) -> tuple:
+def parser(str_coords: str) -> tuple[int]:
+    str_array = str_coords.split(',')
+    int_coords = []
     try:
-        coords = coord.split(",")
-        coordinate = []
-        for c in coords:
-            coordinate.append(int(c))
-        coordinate = tuple(coordinate)
-        print(f"Parsed position: {coordinate}")
-        return coordinate
-    except ValueError as e:
-        print(f"Error parsing coordinates: {e}")
-        print(f"Error details - Type: {type(e).__name__}, Args: {e.args}")
+        for nbr in str_array:
+            int_coords.append(int(nbr))
+        coords = tuple(int_coords)
+        return coords
+    except ValueError as error:
+        print("Error parsing coordinates:", error)
+        print("Error details - "
+              + f'Type: {type(error).__name__}, Args: ("{error}")')
+
+
+def distance(first: tuple[int], second: tuple[int]) -> int:
+    return math.sqrt((first[0] - second[0])**2 +
+                     (first[1] - second[1])**2 +
+                     (first[2] - second[2])**2)
 
 
 def main() -> None:
     print("=== Game Coordinate System ===\n")
-    coordinate = (10, 20, 5)
-    print(f"Position created: {coordinate}")
-    ft_coordinate_system((0, 0, 0), coordinate)
-    print('\nParsing coodinates: "3,4,0"')
-    coordinate = parsing("3,4,0")
-    ft_coordinate_system((0, 0, 0), coordinate)
-    print('\nParsing invalid coordinates: "abc,def,ghi"')
-    parsing("abc,def,ghi")
-    print("\nUnpacking demonstration:")
-    (x, y, z) = coordinate
+    coords1 = (10, 20, 5)
+    coords2 = "3,4,0"
+    invalid = "abc,def,ghi"
+    spawn = (0, 0, 0)
+    print("Position created:", coords1)
+    print(f"Distance between {spawn} and {coords1}: "
+          + f"{distance(spawn, coords1):.2f}")
+    print()
+    print(f'Parsing coordinates: "{coords2}"')
+    coords2 = parser(coords2)
+    print("Parsed position", coords2)
+    print(f"Distance between {spawn} and {coords2}: "
+          + f"{distance(spawn, coords2):.2f}")
+    print()
+    print(f'Parsing invalid coordinates: "{invalid}"')
+    parser(invalid)
+    print()
+    print("Unpaking demonstration:")
+    x, y, z = coords2
     print(f"Player at x={x}, y={y}, z={z}")
-    print(f"Coordinates: x={x}, y={y}, z={z}")
+    print(f"Coordinates: X={x}, Y={y}, Z={z}")
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@ import time
 from typing import Generator
 
 
-def event_generator(qnt: int) -> str:
+def event_generator(qnt: int):
     if qnt % 2 == 0:
         event = "found tresure"
     elif qnt % 3 == 0:
@@ -12,7 +12,7 @@ def event_generator(qnt: int) -> str:
     return event
 
 
-def player_generator(qnt: int, event: str) -> str:
+def player_generator(qnt: int, event: str):
     player = ["bob", "charlie", "alice"]
     base = qnt
     if event == "killed monster":
@@ -39,11 +39,11 @@ def generator(qnt: int) -> Generator[tuple[str, int, str], None, None]:
         yield player, players[player], event
 
 
-def fibonacci(qnt: int) -> Generator[int, None, None]:
+def fibonacci() -> Generator[int, None, None]:
     n1 = 0
     n2 = 1
     result = 0
-    for i in range(qnt):
+    while True:
         yield result
         n1 = n2
         n2 = result
@@ -61,17 +61,17 @@ def is_prime(n: int) -> bool:
     return True
 
 
-def prime(qnt: int) -> Generator[int, None, None]:
+def prime() -> Generator[int, None, None]:
     nbr = 0
     c = 0
-    while c < qnt:
+    while True:
         if is_prime(nbr):
             yield nbr
             c += 1
         nbr += 1
 
 
-def main() -> None:
+def main():
     print("=== Game Data Stream Processor ===\n")
     qnt = 1000
     event_nbr = 0
@@ -79,8 +79,10 @@ def main() -> None:
     treasure_event = 0
     level_up_event = 0
     processing_time = time.time()
+    iterator = generator(qnt)
     print(f"Processing {qnt} game events...\n")
-    for p, l, e in generator(qnt):
+    for _ in range(qnt):
+        p, l, e = next(iterator)
         event_nbr += 1
         if event_nbr <= 3:
             print(f"Event {event_nbr}: Player {p} (level {l}), {e}")
@@ -103,20 +105,21 @@ def main() -> None:
     print("\n=== Generator Demonstration ===")
     fib = ""
     ctrl = 1
-    for f in fibonacci(10):
-        fib += f"{f}"
+    iterator = fibonacci()
+    while ctrl <= 10:
+        fib += f"{next(iterator)}"
         if ctrl < 10:
             fib += ", "
-            ctrl += 1
+        ctrl += 1
     print(f"Fibonacci sequence (first 10): {fib}",)
-    prm = ""
-    ctrl = 1
-    for p in prime(5):
-        prm += f"{p}"
-        if ctrl < 5:
-            prm += ", "
-            ctrl += 1
-    print(f"Prime numbers (first 5): {prm}")
+    # prm = ""
+    # ctrl = 1
+    # for p in prime():
+    #     prm += f"{p}"
+    #     if ctrl < 5:
+    #         prm += ", "
+    #         ctrl += 1
+    # print(f"Prime numbers (first 5): {prm}")
 
 
 if __name__ == "__main__":

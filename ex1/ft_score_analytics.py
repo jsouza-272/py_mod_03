@@ -1,28 +1,42 @@
 import sys
 
 
-def ft_score_analytics() -> None:
-    if len(sys.argv) == 1:
-        print("No scores provided. Usage: \
-python3 ft_score_analytics.py <score1> <score2> ...")
-        return
+def utf8toi() -> list[int] | None:
     scores = []
     try:
-        for s in sys.argv[1:]:
-            scores.append(int(s))
-    except Exception as e:
-        print(e)
-        return
+        for av in sys.argv[1:]:
+            scores.append(int(av))
+    except ValueError as error:
+        print(error)
+        return None
+    return scores
+
+
+def basic_stats(scores: list[int]) -> None:
+    ln = len(scores)
+    sm = sum(scores)
+    mx = max(scores)
+    mn = min(scores)
     print(f"Scores processed: {scores}")
-    print(f"Total players: {len(sys.argv[1:])}")
-    print(f"Total score: {sum(scores)}")
-    print(f"Average score: {(sum(scores) / len(sys.argv[1:])):.1f}")
-    print(f"High score: {max(scores)}")
-    print(f"Low score: {min(scores)}")
-    print(f"Score range: {max(scores) - min(scores)}")
+    print(f"Total players: {ln}")
+    print(f"Average score: {(sm / ln):.1f}")
+    print(f"High score: {mx}")
+    print(f"Low score: {mn}")
+    print(f"Score range: {mx - mn}")
+
+
+def main() -> None:
+    print("=== Player Score Analytics ===")
+    if len(sys.argv) == 1:
+        print("No scores provided. "
+              + f"Usage: python3 {sys.argv[0]} <score1> <score2> ...")
+        return
+    scores = utf8toi()
+    if scores is None:
+        return
+    else:
+        basic_stats(scores)
 
 
 if __name__ == "__main__":
-    print("=== Player Score Analytics ===")
-    ft_score_analytics()
-    print()
+    main()
