@@ -65,15 +65,19 @@ def dictionary_properties_demo(invetory: dict) -> None:
 
 if __name__ == "__main__":
     inventory = dict()
-    for av in sys.argv[1:]:
-        a = {av[:-2]: int(av[-1])}
-        inventory.update(a)
-    inventory_system_analysis(inventory)
-    print()
-    current_inventory(inventory)
-    print()
-    inventory_statistics(inventory)
-    print()
-    management_suggestions(inventory)
-    print()
-    dictionary_properties_demo(inventory)
+    try:
+        for av in sys.argv[1:]:
+            a = av.split(':')
+            b = {a[0]: int(a[1])}
+            inventory.update(b)
+        inventory_system_analysis(inventory)
+        print()
+        current_inventory(inventory)
+        print()
+        inventory_statistics(inventory)
+        print()
+        management_suggestions(inventory)
+        print()
+        dictionary_properties_demo(inventory)
+    except Exception:
+        print(f"Usage: python3 {sys.argv[0]} <item_name>:<item_qnt> ...")

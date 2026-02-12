@@ -11,6 +11,7 @@ def main() -> None:
         i = 1
         for av in sys.argv[1:]:
             print(f"Argument {i}: {av}")
+            i += 1
     print(f"Total arguments: {len(sys.argv)}")
 
 

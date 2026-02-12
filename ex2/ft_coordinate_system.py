@@ -12,7 +12,7 @@ def parser(str_coords: str) -> tuple[int]:
     except ValueError as error:
         print("Error parsing coordinates:", error)
         print("Error details - "
-              + f'Type: {type(error).__name__}, Args: ("{error}")')
+              + f'Type: {type(error).__name__}, Args: {error.args}')
 
 
 def distance(first: tuple[int], second: tuple[int]) -> int:
